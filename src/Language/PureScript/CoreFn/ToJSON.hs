@@ -162,13 +162,13 @@ recordToJSON :: (a -> Value) -> [(PSString, a)] -> Value
 recordToJSON f = toJSON . map (toJSON *** f)
 
 exprToJSON :: Expr Ann -> Value
-exprToJSON (Var ann i)              = object [ "type"        .= toJSON "Var"
+exprToJSON (Var ann i)              = object [ "type"        .= "Var"
                                              , "annotation"  .= annToJSON ann
                                              , "value"       .= qualifiedToJSON runIdent i
                                              ]
 exprToJSON (Literal ann l)          = object [ "type"        .= "Literal"
                                              , "annotation"  .= annToJSON ann
-                                             , "value"       .=  literalToJSON exprToJSON l
+                                             , "value"       .= literalToJSON exprToJSON l
                                              ]
 exprToJSON (Constructor ann d c is) = object [ "type"        .= "Constructor"
                                              , "annotation"  .= annToJSON ann
